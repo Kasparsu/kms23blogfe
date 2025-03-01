@@ -7,10 +7,20 @@
     });
     
     function login(){
-        axios.post('http://127.0.0.1:8000/api/login', form.value).then(res => {
-            console.log(res.data);
-            router.go('/');
+        axios.defaults.withCredentials = true;
+        axios.defaults.withXSRFToken = true;
+        axios.get('http://localhost:8000/sanctum/csrf-cookie').then(response => {
+            console.log(response);
+            axios.post('http://localhost:8000/api/login', form.value).then(res => {
+                console.log(res.data);
+                axios.get('http://localhost:8000/api/user', form.value).then(res => {
+                    console.log(res.data);
+                    router.push('/');
+                });
+            //router.go('/');
+            });
         });
+        
     }
 </script>
 

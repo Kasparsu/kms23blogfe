@@ -11,7 +11,7 @@
     function register(){
         axios.post('http://127.0.0.1:8000/api/register', form.value).then(res => {
             console.log(res.data);
-            router.go('/login');
+            router.push('/login');
         });
     }
 </script>
